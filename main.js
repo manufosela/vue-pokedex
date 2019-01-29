@@ -56,6 +56,15 @@ var app = new Vue({
                 .filter(function(pokemon){
                     return pokemon !== pokemonToDelete; // this works because is the same object (the pokemons array is the single source of truth here)
                 });
+
+            var miInit = { method: 'DELETE' };
+            fetch('http://localhost/api/pokedex/'+pokemonToDelete, miInit) 
+                .then(function(response){
+                    return response.json();
+                })
+                .then(function(pokemons){
+                    that.pokemons = pokemons;
+                });
         },
     },
     created: function(){ // function executed just after setting the reactivity https://vuejs.org/v2/guide/instance.html#Lifecycle-Diagram
